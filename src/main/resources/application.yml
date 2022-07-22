@@ -1,0 +1,27 @@
+'%dev':
+  db:
+    name: DB-Test
+    schema: public
+    server: localhost
+    port: 5432
+    username: postgres
+    password: ''
+
+quarkus:
+  log:
+    category:
+      "it.drwolf":
+        level: DEBUG
+  datasource:
+    db-kind: postgresql
+    username: ${db.username}
+    password: ${db.password}
+    jdbc:
+      max-size: 2
+      url: jdbc:postgresql://${db.server}:${db.port}/${db.name}?currentSchema=${db.schema}
+  hibernate-orm:
+    log:
+      sql: true
+    database:
+      generation:
+        ~: update
