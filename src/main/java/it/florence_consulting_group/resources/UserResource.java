@@ -64,4 +64,40 @@ public class UserResource extends CrudResource<User> {
 	public User update(@PathParam Long id, User user) {
 		return super.update(id, user);
 	}
+
+	@Transactional
+	@PUT
+	@Path("/update-address/{id}")
+	public User updateAddress(@PathParam Long id, String address) {
+		User user = super.get(id);
+		user.setAddress(address);
+		return super.update(id, user);
+	}
+
+	@Transactional
+	@PUT
+	@Path("/update-email/{id}")
+	public User updateEmail(@PathParam Long id, String email) {
+		User user = super.get(id);
+		user.setEmail(email);
+		return super.update(id, user);
+	}
+
+	@Transactional
+	@PUT
+	@Path("/update-lastname/{id}")
+	public User updateLastname(@PathParam Long id, String lastname) {
+		User user = super.get(id);
+		user.setLastname(lastname);
+		return super.update(id, user);
+	}
+
+	@Transactional
+	@PUT
+	@Path("/update-name/{id}")
+	public User updateName(@PathParam Long id, String name) {
+		User user = super.get(id);
+		user.setName(name);
+		return super.update(id, user);
+	}
 }
