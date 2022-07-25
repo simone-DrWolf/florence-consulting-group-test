@@ -57,6 +57,15 @@ public class UserResource extends CrudResource<User> {
 		return super.list(page, size, sort);
 	}
 
+	@Transactional
+	@GET
+	@Path("/search")
+	public List<User> search(@QueryParam String search, @QueryParam int page,
+			@QueryParam @DefaultValue(CrudResource.DEFAULT_PAGE_SIZE) Integer size,
+			@QueryParam @DefaultValue(User_.LASTNAME) String sort) {
+		return this.repository.search(search, page, size).list();
+	}
+
 	@Override
 	@Transactional
 	@PUT
