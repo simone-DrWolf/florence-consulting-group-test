@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -58,6 +59,26 @@ public class UserResource extends CrudResource<User> {
 	}
 
 	@Transactional
+	@PATCH
+	@Path("/partial-update/{id}")
+	public User partialUpdate(@PathParam Long id, User user) {
+		User u = super.get(id);
+		if (user.getName() != null) {
+			u.setName(user.getName());
+		}
+		if (user.getLastname() != null) {
+			u.setLastname(user.getLastname());
+		}
+		if (user.getEmail() != null) {
+			u.setEmail(user.getEmail());
+		}
+		if (user.getAddress() != null) {
+			u.setAddress(user.getAddress());
+		}
+		return super.update(id, u);
+	}
+
+	@Transactional
 	@GET
 	@Path("/search")
 	public List<User> search(@QueryParam String search, @QueryParam int page,
@@ -74,39 +95,4 @@ public class UserResource extends CrudResource<User> {
 		return super.update(id, user);
 	}
 
-	@Transactional
-	@PUT
-	@Path("/update-address/{id}")
-	public User updateAddress(@PathParam Long id, String address) {
-		User user = super.get(id);
-		user.setAddress(address);
-		return super.update(id, user);
-	}
-
-	@Transactional
-	@PUT
-	@Path("/update-email/{id}")
-	public User updateEmail(@PathParam Long id, String email) {
-		User user = super.get(id);
-		user.setEmail(email);
-		return super.update(id, user);
-	}
-
-	@Transactional
-	@PUT
-	@Path("/update-lastname/{id}")
-	public User updateLastname(@PathParam Long id, String lastname) {
-		User user = super.get(id);
-		user.setLastname(lastname);
-		return super.update(id, user);
-	}
-
-	@Transactional
-	@PUT
-	@Path("/update-name/{id}")
-	public User updateName(@PathParam Long id, String name) {
-		User user = super.get(id);
-		user.setName(name);
-		return super.update(id, user);
-	}
 }
