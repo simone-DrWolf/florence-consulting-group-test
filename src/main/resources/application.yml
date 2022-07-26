@@ -7,6 +7,15 @@
     username: postgres
     password: ''
 
+'%prod':
+  db:
+    name: DB-Test
+    schema: public
+    server: db
+    port: 5432
+    username: postgres
+    password: ''
+
 quarkus:
   log:
     category:
